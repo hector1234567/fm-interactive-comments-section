@@ -13,6 +13,7 @@
     />
 
     <title>Interactive comments section | Hector BG</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <main>
@@ -31,7 +32,12 @@
             <p class="comment__created-at">2 weeks ago</p>
           </div>
           <div class="comment__actions">
-            <button>
+            <button class="btn-danger">
+              <img src="/images/icon-delete.svg" alt="Delete" /><span
+                >Delete</span
+              >
+            </button>
+            <button class="btn-primary">
               <img src="/images/icon-reply.svg" alt="Reply" /><span>Reply</span>
             </button>
           </div>
@@ -41,7 +47,35 @@
           overall it looks incredible. You've nailed the design and the
           responsiveness at various breakpoints works really well.
         </div>
-        <div class="comment__replies">
+      </div>
+      <div class="comment">
+        <div class="comment__counter">
+          <img src="/images/icon-plus.svg" alt="Plus" />
+          <p class="counter__number">12</p>
+          <img src="/images/icon-minus.svg" alt="Minus" />
+        </div>
+        <div class="comment__header">
+          <div class="comment__data">
+            <figure>
+              <img src="/images/avatars/image-amyrobson.png" alt="Avatar" />
+            </figure>
+            <p class="comment__user-name">maxblagun</p>
+            <p class="comment__created-at">2 weeks ago</p>
+          </div>
+          <div class="comment__actions">
+            <button class="btn-primary">
+              <img src="/images/icon-reply.svg" alt="Reply" /><span>Reply</span>
+            </button>
+          </div>
+        </div>
+        <div class="comment__content">
+          Impressive! Though it seems the drag feature could be improved. But
+          overall it looks incredible. You've nailed the design and the
+          responsiveness at various breakpoints works really well.
+        </div>
+      </div>
+      <div class="replies">
+        <div class="comment">
           <div class="comment__counter">
             <img src="/images/icon-plus.svg" alt="Plus" />
             <p class="counter__number">12</p>
@@ -56,7 +90,12 @@
               <p class="comment__created-at">2 weeks ago</p>
             </div>
             <div class="comment__actions">
-              <button>
+              <button class="btn-danger">
+                <img src="/images/icon-delete.svg" alt="Delete" /><span
+                  >Delete</span
+                >
+              </button>
+              <button class="btn-primary">
                 <img src="/images/icon-reply.svg" alt="Reply" /><span
                   >Reply</span
                 >
@@ -68,7 +107,8 @@
             overall it looks incredible. You've nailed the design and the
             responsiveness at various breakpoints works really well.
           </div>
-
+        </div>
+        <div class="comment">
           <div class="comment__counter">
             <img src="/images/icon-plus.svg" alt="Plus" />
             <p class="counter__number">12</p>
@@ -83,7 +123,12 @@
               <p class="comment__created-at">2 weeks ago</p>
             </div>
             <div class="comment__actions">
-              <button>
+              <button class="btn-danger">
+                <img src="/images/icon-delete.svg" alt="Delete" /><span
+                  >Delete</span
+                >
+              </button>
+              <button class="btn-primary">
                 <img src="/images/icon-reply.svg" alt="Reply" /><span
                   >Reply</span
                 >
@@ -97,6 +142,18 @@
           </div>
         </div>
       </div>
+      <form>
+        <figure>
+          <img src="/images/avatars/image-juliusomo.png" alt="Avatar" />
+        </figure>
+        <textarea
+          name="reply"
+          id="reply"
+          rows="3"
+          placeholder="Add a comment..."
+        ></textarea>
+        <button type="submit">Send</button>
+      </form>
     </main>
   </body>
 </html>
