@@ -1,21 +1,12 @@
 export class CommentView {
-  constructor(parentEl) {
+  constructor(parentEl, currentUser) {
     this._parentEl = parentEl;
-  }
-
-  static renderCommentsInsideDiv(comments, divEl) {
-    comments.forEach((comment) => {
-      new CommentView(divEl).render(comment);
-    });
+    this._currentUser = currentUser;
   }
 
   render(data) {
     this._data = data;
     this._parentEl.insertAdjacentHTML("afterbegin", this._generateMarkup());
-
-    if (!data.replies) return;
-    const repliesEl = this._parentEl.querySelector("#replies--" + data.id);
-    CommentView.renderCommentsInsideDiv(data.replies, repliesEl);
   }
 
   _generateMarkup() {
@@ -33,21 +24,42 @@ export class CommentView {
                     <img src="${user.image.png}" alt="Avatar" />
                 </figure>
                 <p class="comment__user-name">${user.username}</p>
+                ${this._renderYouBadge(user.username)}
                 <p class="comment__created-at">${createdAt}</p>
             </div>
             <div class="comment__actions">
-                <button class="btn-danger">
-                    <img src="/images/icon-delete.svg" alt="Delete" /><span
-                    >Delete</span
-                    >
-                </button>
-                <button class="btn-primary">
-                    <img src="/images/icon-reply.svg" alt="Reply" /><span>Reply</span>
-                </button>
+                ${this._renderActionButtons(user.username)}
             </div>
             <div class="comment__content">${content}</div>
         </div>
         <div class="replies" id="replies--${id}"></div>
+        `;
+  }
+
+  _renderYouBadge(username) {
+    if (username === this._currentUser.username) {
+      return '<p class="comment__badge">you</p>';
+    }
+    return "";
+  }
+
+  _renderActionButtons(username) {
+    if (username === this._currentUser.username) {
+      return `
+        <button class="btn-danger">
+            <img src="/images/icon-delete.svg" alt="Delete" /><span
+            >Delete</span
+            >
+        </button>
+        <button class="btn-primary">
+            <img src="/images/icon-edit.svg" alt="Edit" /><span>Edit</span>
+        </button>
+        `;
+    }
+    return `
+        <button class="btn-primary">
+            <img src="/images/icon-reply.svg" alt="Reply" /><span>Reply</span>
+        </button>
         `;
   }
 }
