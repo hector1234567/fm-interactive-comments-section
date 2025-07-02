@@ -32,12 +32,11 @@ export class ReplyFormView extends FormView {
   constructor(id, currentUser) {
     super(currentUser);
     this._id = id;
+    this._commentEl = document.querySelector("#comment--" + this._id);
   }
 
   render() {
-    const comment = document
-      .querySelector("#comment--" + this._id)
-      .insertAdjacentHTML("afterend", this._generateMarkup());
+    this._commentEl.insertAdjacentHTML("afterend", this._generateMarkup());
   }
 
   _generateMarkup() {
@@ -53,6 +52,34 @@ export class ReplyFormView extends FormView {
                 placeholder="Add a comment..."
             ></textarea>
             <button type="submit">Reply</button>
+        </form>
+      `;
+  }
+}
+
+export class EditFormView {
+  constructor(id) {
+    this._id = id;
+    this._commentEl = document.querySelector("#comment--" + this._id);
+  }
+
+  render() {
+    this._commentEl.querySelector(".comment__content").innerHTML =
+      this._generateMarkup();
+  }
+
+  _generateMarkup() {
+    return `
+        <form id="editForm--${this._id}">
+            <textarea
+                name="reply"
+                id="reply"
+                rows="3"
+                placeholder="Add a comment..."
+            >${
+              this._commentEl.querySelector(".comment__content").innerText
+            }</textarea>
+            <button type="submit">Update</button>
         </form>
       `;
   }

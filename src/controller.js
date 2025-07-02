@@ -1,5 +1,5 @@
 import { CommentView } from "./commentView.js";
-import { FormView, ReplyFormView } from "./formView.js";
+import { EditFormView, FormView, ReplyFormView } from "./formView.js";
 import { updateScoreCount, getComments, state } from "./model.js";
 
 const mainEl = document.querySelector("main");
@@ -22,7 +22,11 @@ function renderComments() {
 function addComment(comment, divEl) {
   new CommentView(divEl, state.currentUser)
     .render(comment)
-    .addHandlersClickEvent(handleShowReplyForm, handleScore);
+    .addHandlersClickEvent(
+      handleShowReplyForm,
+      handleScore,
+      handleShowEditForm
+    );
 
   if (!comment.replies) return;
   const repliesEl = document.querySelector("#replies--" + comment.id);
@@ -31,6 +35,10 @@ function addComment(comment, divEl) {
 
 function handleShowReplyForm(id) {
   new ReplyFormView(id, state.currentUser).render();
+}
+
+function handleShowEditForm(id) {
+  new EditFormView(id).render();
 }
 
 function handleScore(direction, commentId) {

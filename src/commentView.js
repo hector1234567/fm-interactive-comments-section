@@ -10,7 +10,7 @@ export class CommentView {
     return this;
   }
 
-  addHandlersClickEvent(handleReply, handleScore) {
+  addHandlersClickEvent(handleReply, handleScore, handleShowEditForm) {
     this._parentEl
       .querySelector("#comment--" + this._data.id)
       .addEventListener("click", (ev) => {
@@ -24,6 +24,8 @@ export class CommentView {
           return handleScore("up", this._data.id);
         } else if (button.classList.contains("down")) {
           return handleScore("down", this._data.id);
+        } else if (button.classList.contains("btn-edit")) {
+          return handleShowEditForm(this._data.id);
         }
       });
   }
