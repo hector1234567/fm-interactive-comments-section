@@ -1,5 +1,6 @@
-import { CommentView } from "./commentView.js";
-import { EditFormView, FormView, ReplyFormView } from "./formView.js";
+import { CommentView } from "./views/commentView.js";
+import { EditFormView, FormView, ReplyFormView } from "./views/formView.js";
+import modalView from "./views/modalView.js";
 import { updateScoreCount, getComments, state } from "./model.js";
 
 const mainEl = document.querySelector("main");
@@ -25,7 +26,8 @@ function addComment(comment, divEl) {
     .addHandlersClickEvent(
       handleShowReplyForm,
       handleScore,
-      handleShowEditForm
+      handleShowEditForm,
+      handleShowDeleteModal
     );
 
   if (!comment.replies) return;
@@ -41,7 +43,15 @@ function handleShowEditForm(id) {
   new EditFormView(id).render();
 }
 
+function handleShowDeleteModal(id) {
+  modalView.render(id).addHandlersClickEvent(handleCloseModal);
+}
+
 function handleScore(direction, commentId) {
   updateScoreCount(direction, commentId);
   renderComments();
+}
+
+function handleCloseModal() {
+  modalView.remove();
 }

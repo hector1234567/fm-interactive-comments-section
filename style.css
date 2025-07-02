@@ -39,6 +39,11 @@ body {
   background-color: var(--Grey-50);
   color: var(--Grey-500);
   min-height: 100dvh;
+  position: relative;
+}
+
+.d-contents {
+  display: contents;
 }
 
 main {
@@ -230,7 +235,7 @@ form figure img {
   border: 0.13rem solid var(--Purple-600);
 }
 
-form button {
+.btn {
   width: 10.4rem;
   height: 4.8rem;
   border-radius: 0.8rem;
@@ -248,8 +253,57 @@ form button {
   transition: background-color 0.3s ease;
 }
 
-form button:hover {
-  background-color: var(--Purple-200);
+.btn:hover {
+  opacity: 0.5;
+}
+
+.btn--secondary {
+  background-color: var(--Grey-500);
+}
+
+.btn--danger {
+  background-color: var(--Pink-400);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.7;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--White);
+  padding: 2.75rem 3.1rem;
+  border-radius: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  width: 100%;
+  max-width: 40rem;
+  line-height: 150%;
+}
+
+.modal h3 {
+  color: var(--Grey-800);
+  font-size: 2.4rem;
+  font-weight: 500;
+  line-height: 120%;
+}
+
+.modal__buttons {
+  display: flex;
+  gap: 1.6rem;
+}
+
+.modal__buttons .btn {
+  width: 100%;
 }
 
 @media (max-width: 600px) {

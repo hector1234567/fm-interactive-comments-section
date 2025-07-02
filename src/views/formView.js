@@ -22,7 +22,7 @@ export class FormView {
                 rows="3"
                 placeholder="Add a comment..."
             ></textarea>
-            <button type="submit">SEND</button>
+            <button type="submit" class="btn">SEND</button>
         </form>
       `;
   }
@@ -51,7 +51,7 @@ export class ReplyFormView extends FormView {
                 rows="3"
                 placeholder="Add a comment..."
             ></textarea>
-            <button type="submit">Reply</button>
+            <button type="submit" class="btn">Reply</button>
         </form>
       `;
   }
@@ -79,7 +79,7 @@ export class EditFormView {
             >${
               this._commentEl.querySelector(".comment__content").innerText
             }</textarea>
-            <button type="submit">Update</button>
+            <button type="submit" class="btn">Update</button>
         </form>
       `;
   }

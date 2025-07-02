@@ -10,22 +10,30 @@ export class CommentView {
     return this;
   }
 
-  addHandlersClickEvent(handleReply, handleScore, handleShowEditForm) {
+  addHandlersClickEvent(
+    handleReplyComment,
+    handleScore,
+    handleEditComment,
+    handleDeleteComment
+  ) {
     this._parentEl
       .querySelector("#comment--" + this._data.id)
       .addEventListener("click", (ev) => {
         const button = ev.target.closest("button");
         if (!button) return;
 
-        button.disabled = true;
         if (button.classList.contains("btn-reply")) {
-          return handleReply(this._data.id);
+          button.disabled = true;
+          return handleReplyComment(this._data.id);
         } else if (button.classList.contains("up")) {
           return handleScore("up", this._data.id);
         } else if (button.classList.contains("down")) {
           return handleScore("down", this._data.id);
         } else if (button.classList.contains("btn-edit")) {
-          return handleShowEditForm(this._data.id);
+          button.disabled = true;
+          return handleEditComment(this._data.id);
+        } else if (button.classList.contains("btn-delete")) {
+          return handleDeleteComment(this._data.id);
         }
       });
   }
