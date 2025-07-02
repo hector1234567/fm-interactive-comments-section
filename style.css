@@ -75,6 +75,16 @@ main {
   color: var(--Purple-600);
 }
 
+.comment__counter button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.comment__counter button:hover {
+  opacity: 0.5;
+}
+
 .comment__counter img {
   width: 1rem;
 }
@@ -126,7 +136,8 @@ main {
   transition: opacity 0.3s ease;
 }
 
-.comment__actions button:hover {
+.comment__actions button:hover,
+.comment__actions button:disabled {
   opacity: 0.5;
 }
 
@@ -156,6 +167,20 @@ main {
   display: none;
 }
 
+@keyframes animateOpacity {
+  0% {
+    opacity: 0;
+    transform: translateY(-10rem);
+  }
+  70% {
+    transform: translateY(2rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 form {
   background-color: var(--White);
   border-radius: 0.8rem;
@@ -164,6 +189,12 @@ form {
   grid-template-columns: min-content auto min-content;
   gap: 1.6rem;
   align-items: start;
+}
+
+form[id^="form--"] {
+  animation-name: animateOpacity;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
 }
 
 form figure {

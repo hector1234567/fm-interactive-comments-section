@@ -7,6 +7,25 @@ export class CommentView {
   render(data) {
     this._data = data;
     this._parentEl.insertAdjacentHTML("afterbegin", this._generateMarkup());
+    return this;
+  }
+
+  addHandlersClickEvent(handleReply, handleScore) {
+    this._parentEl
+      .querySelector("#comment--" + this._data.id)
+      .addEventListener("click", (ev) => {
+        const button = ev.target.closest("button");
+        if (!button) return;
+
+        button.disabled = true;
+        if (button.classList.contains("btn-reply")) {
+          return handleReply(this._data.id);
+        } else if (button.classList.contains("up")) {
+          return handleScore("up", this._data.id);
+        } else if (button.classList.contains("down")) {
+          return handleScore("down", this._data.id);
+        }
+      });
   }
 
   _generateMarkup() {
@@ -15,9 +34,13 @@ export class CommentView {
     return `
         <div class="comment" id="comment--${id}">
             <div class="comment__counter">
-                <img src="/images/icon-plus.svg" alt="Plus" />
+                <button class="up">
+                    <img src="/images/icon-plus.svg" alt="Plus" />
+                </button>
                 <p class="counter__number">${score}</p>
-                <img src="/images/icon-minus.svg" alt="Minus" />
+                <button class="down">
+                    <img src="/images/icon-minus.svg" alt="Minus" />
+                </button>
             </div>
             <div class="comment__data">
                 <figure>
@@ -46,18 +69,18 @@ export class CommentView {
   _renderActionButtons(username) {
     if (username === this._currentUser.username) {
       return `
-        <button class="btn-danger">
+        <button class="btn-danger btn-delete">
             <img src="/images/icon-delete.svg" alt="Delete" /><span
             >Delete</span
             >
         </button>
-        <button class="btn-primary">
+        <button class="btn-primary btn-edit">
             <img src="/images/icon-edit.svg" alt="Edit" /><span>Edit</span>
         </button>
         `;
     }
     return `
-        <button class="btn-primary">
+        <button class="btn-primary btn-reply">
             <img src="/images/icon-reply.svg" alt="Reply" /><span>Reply</span>
         </button>
         `;
