@@ -1,7 +1,12 @@
 import { CommentView } from "./views/commentView.js";
 import { EditFormView, FormView, ReplyFormView } from "./views/formView.js";
 import modalView from "./views/modalView.js";
-import { updateScoreCount, getComments, state } from "./model.js";
+import {
+  updateScoreCount,
+  getComments,
+  state,
+  deleteComment,
+} from "./model.js";
 
 const mainEl = document.querySelector("main");
 
@@ -21,6 +26,7 @@ function renderComments() {
 }
 
 function addComment(comment, divEl) {
+  if (comment.deleted === true) return;
   new CommentView(divEl, state.currentUser)
     .render(comment)
     .addHandlersClickEvent(
@@ -44,7 +50,9 @@ function handleShowEditForm(id) {
 }
 
 function handleShowDeleteModal(id) {
-  modalView.render(id).addHandlersClickEvent(handleCloseModal);
+  modalView
+    .render(id)
+    .addHandlersClickEvent(handleCloseModal, handleDeleteComment);
 }
 
 function handleScore(direction, commentId) {
@@ -54,4 +62,10 @@ function handleScore(direction, commentId) {
 
 function handleCloseModal() {
   modalView.remove();
+}
+
+function handleDeleteComment(id) {
+  deleteComment(id);
+  modalView.remove();
+  renderComments();
 }

@@ -21,7 +21,7 @@ class ModalView {
         ) {
           handleCloseModal();
         } else if (ev.target.closest(".btn--danger")) {
-          handleDelete();
+          handleDelete(this._id);
         }
       });
   }

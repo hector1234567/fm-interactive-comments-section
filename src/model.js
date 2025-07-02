@@ -27,3 +27,23 @@ function updateCommentScore(direction, comment, commentId) {
     return comment;
   }
 }
+
+export function deleteComment(commentId) {
+  const updatedComments = state.comments.map((comment) =>
+    updateDeleteComent(comment, commentId)
+  );
+  state = { ...state, comments: updatedComments };
+}
+
+function updateDeleteComent(comment, commentId) {
+  if (comment.id === commentId) {
+    return { ...comment, deleted: true };
+  } else if (comment.replies) {
+    const updatedReplies = comment.replies.map((reply) =>
+      updateDeleteComent(reply, commentId)
+    );
+    return { ...comment, replies: updatedReplies };
+  } else {
+    return comment;
+  }
+}
