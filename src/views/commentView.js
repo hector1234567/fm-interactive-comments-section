@@ -44,11 +44,11 @@ export class CommentView {
     return `
         <div class="comment" id="comment--${id}">
             <div class="comment__counter">
-                <button class="up">
+                <button type="button" class="up">
                     <img src="/images/icon-plus.svg" alt="Plus" />
                 </button>
                 <p class="counter__number">${score}</p>
-                <button class="down">
+                <button type="button" class="down">
                     <img src="/images/icon-minus.svg" alt="Minus" />
                 </button>
             </div>
