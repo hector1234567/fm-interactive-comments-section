@@ -36,7 +36,7 @@ export async function saveState(state) {
   }
 }
 
-export async function loadState(state) {
+export async function loadState() {
   return new Promise((resolve, reject) => {
     if ("indexedDB" in window) {
       const open = indexedDB.open("InteractiveCommentsSectionDB", 1);
