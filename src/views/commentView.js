@@ -79,18 +79,18 @@ export class CommentView {
   _renderActionButtons(username) {
     if (username === this._currentUser.username) {
       return `
-        <button class="btn-danger btn-delete">
+        <button type="button" class="btn-danger btn-delete">
             <img src="/images/icon-delete.svg" alt="Delete" /><span
             >Delete</span
             >
         </button>
-        <button class="btn-primary btn-edit">
+        <button type="button" class="btn-primary btn-edit">
             <img src="/images/icon-edit.svg" alt="Edit" /><span>Edit</span>
         </button>
         `;
     }
     return `
-        <button class="btn-primary btn-reply">
+        <button type="button" class="btn-primary btn-reply">
             <img src="/images/icon-reply.svg" alt="Reply" /><span>Reply</span>
         </button>
         `;
