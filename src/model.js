@@ -1,10 +1,19 @@
-import { generateRandomId, getNowDateFormmatted } from "./helpers.js";
+import {
+  generateRandomId,
+  getNowDateFormmatted,
+  loadState,
+  saveState,
+} from "./helpers.js";
 
 export let state = {};
 
+window.addEventListener("beforeunload", function (event) {
+  event.preventDefault();
+  saveState(state);
+});
+
 async function getComments() {
-  const response = await fetch("/data.json");
-  const data = await response.json();
+  const data = await loadState(state);
   state = data;
 }
 
