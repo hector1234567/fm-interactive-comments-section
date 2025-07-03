@@ -100,7 +100,7 @@ function modifyComment(comment, content, id) {
   if (comment.id === id) {
     comment.content = content;
   } else if (comment.replies) {
-    comment.replies.forEach((comment) => modifyComment(comment, content, id));
+    comment.replies.forEach((com) => modifyComment(com, content, id));
   }
 }
 
