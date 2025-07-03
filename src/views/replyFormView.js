@@ -13,12 +13,6 @@ export default class ReplyFormView {
   addHandlerSubmitEvent(submitHandler) {
     document
       .querySelector("#form--" + this._id)
-      .addEventListener("submit", () => submitHandler(this._id));
-  }
-
-  addHandlerSubmitEvent(submitHandler) {
-    document
-      .querySelector("#form--" + this._id)
       .addEventListener("submit", (ev) => {
         ev.preventDefault();
         submitHandler(new FormData(ev.target), this._id);
