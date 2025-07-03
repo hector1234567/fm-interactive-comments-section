@@ -1,4 +1,4 @@
-export class FormView {
+export default class FormView {
   _parentEl = document.querySelector("main");
 
   constructor(currentUser) {
@@ -10,76 +10,28 @@ export class FormView {
     return this;
   }
 
+  addHandlerSubmitEvent(submitHandler) {
+    this._parentEl
+      .querySelector("#newCommentForm")
+      .addEventListener("submit", (ev) => {
+        ev.preventDefault();
+        submitHandler(new FormData(ev.target));
+      });
+  }
+
   _generateMarkup() {
     return `
-        <form>
+        <form id="newCommentForm">
             <figure>
                 <img src="${this._currentUser.image.png}" alt="Avatar" />
             </figure>
             <textarea
-                name="reply"
-                id="reply"
+                name="content"
+                id="content"
                 rows="3"
                 placeholder="Add a comment..."
             ></textarea>
             <button type="submit" class="btn">SEND</button>
-        </form>
-      `;
-  }
-}
-
-export class ReplyFormView extends FormView {
-  constructor(id, currentUser) {
-    super(currentUser);
-    this._id = id;
-    this._commentEl = document.querySelector("#comment--" + this._id);
-  }
-
-  render() {
-    this._commentEl.insertAdjacentHTML("afterend", this._generateMarkup());
-  }
-
-  _generateMarkup() {
-    return `
-        <form id="form--${this._id}">
-            <figure>
-                <img src="${this._currentUser.image.png}" alt="Avatar" />
-            </figure>
-            <textarea
-                name="reply"
-                id="reply"
-                rows="3"
-                placeholder="Add a comment..."
-            ></textarea>
-            <button type="submit" class="btn">Reply</button>
-        </form>
-      `;
-  }
-}
-
-export class EditFormView {
-  constructor(id) {
-    this._id = id;
-    this._commentEl = document.querySelector("#comment--" + this._id);
-  }
-
-  render() {
-    this._commentEl.querySelector(".comment__content").innerHTML =
-      this._generateMarkup();
-  }
-
-  _generateMarkup() {
-    return `
-        <form id="editForm--${this._id}">
-            <textarea
-                name="reply"
-                id="reply"
-                rows="3"
-                placeholder="Add a comment..."
-            >${
-              this._commentEl.querySelector(".comment__content").innerText
-            }</textarea>
-            <button type="submit" class="btn">Update</button>
         </form>
       `;
   }

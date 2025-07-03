@@ -1,18 +1,15 @@
 import { CommentView } from "./views/commentView.js";
-import { EditFormView, FormView, ReplyFormView } from "./views/formView.js";
+import FormView from "./views/formView.js";
+import EditFormView from "./views/editFormView.js";
+import ReplyFormView from "./views/replyFormView.js";
 import modalView from "./views/modalView.js";
-import {
-  updateScoreCount,
-  getComments,
-  state,
-  deleteComment,
-} from "./model.js";
+import model, { state } from "./model.js";
 
 const mainEl = document.querySelector("main");
 
 (async function () {
   try {
-    await getComments();
+    await model.getComments();
     renderComments();
   } catch (e) {
     console.error(e);
@@ -21,7 +18,9 @@ const mainEl = document.querySelector("main");
 
 function renderComments() {
   mainEl.innerHTML = "";
-  new FormView(state.currentUser).render();
+  new FormView(state.currentUser)
+    .render()
+    .addHandlerSubmitEvent(handleSubmitNewComment);
   state.comments.forEach((comment) => addComment(comment, mainEl));
 }
 
@@ -42,11 +41,13 @@ function addComment(comment, divEl) {
 }
 
 function handleShowReplyForm(id) {
-  new ReplyFormView(id, state.currentUser).render();
+  new ReplyFormView(id, state.currentUser)
+    .render()
+    .addHandlerSubmitEvent(handleSubmitReply);
 }
 
 function handleShowEditForm(id) {
-  new EditFormView(id).render();
+  new EditFormView(id).render().addHandlerSubmitEvent(handleSubmitEdit);
 }
 
 function handleShowDeleteModal(id) {
@@ -56,7 +57,7 @@ function handleShowDeleteModal(id) {
 }
 
 function handleScore(direction, commentId) {
-  updateScoreCount(direction, commentId);
+  model.updateScoreCount(direction, commentId);
   renderComments();
 }
 
@@ -65,7 +66,22 @@ function handleCloseModal() {
 }
 
 function handleDeleteComment(id) {
-  deleteComment(id);
+  model.deleteComment(id);
   modalView.remove();
+  renderComments();
+}
+
+function handleSubmitNewComment(formData) {
+  model.createNewComment(formData.get("content"));
+  renderComments();
+}
+
+function handleSubmitReply(formData, id) {
+  model.createNewReply(formData.get("content"), id);
+  renderComments();
+}
+
+function handleSubmitEdit(formData, id) {
+  model.editComment(formData.get("content"), id);
   renderComments();
 }

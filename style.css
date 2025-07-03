@@ -217,7 +217,9 @@ form figure img {
   width: 4rem;
 }
 
-#reply {
+#reply,
+#content,
+.edit-form {
   width: 100%;
   padding: 0.8rem 1.6rem;
   font-family: inherit;
@@ -231,7 +233,9 @@ form figure img {
   color: var(--Grey-800);
 }
 
-#reply:focus-visible {
+#reply:focus-visible,
+#content:focus-visible,
+.edit-form:focus-visible {
   border: 0.13rem solid var(--Purple-600);
 }
 
@@ -340,7 +344,8 @@ form figure img {
     padding-left: 1.6rem;
   }
 
-  #reply {
+  #reply,
+  #content {
     grid-row: 1/2;
     grid-column: 1/-1;
   }

@@ -1,12 +1,14 @@
+import { generateRandomId, getNowDateFormmatted } from "./helpers.js";
+
 export let state = {};
 
-export async function getComments() {
+async function getComments() {
   const response = await fetch("/data.json");
   const data = await response.json();
   state = data;
 }
 
-export function updateScoreCount(direction, commentId) {
+function updateScoreCount(direction, commentId) {
   const updatedComments = state.comments.map((comment) =>
     updateCommentScore(direction, comment, commentId)
   );
@@ -28,7 +30,7 @@ function updateCommentScore(direction, comment, commentId) {
   }
 }
 
-export function deleteComment(commentId) {
+function deleteComment(commentId) {
   const updatedComments = state.comments.map((comment) =>
     updateDeleteComent(comment, commentId)
   );
@@ -47,3 +49,59 @@ function updateDeleteComent(comment, commentId) {
     return comment;
   }
 }
+
+function createNewComment(content) {
+  const comment = {
+    id: generateRandomId(),
+    content,
+    createdAt: getNowDateFormmatted(),
+    score: 0,
+    user: state.currentUser,
+    replies: [],
+  };
+
+  state.comments.push(comment);
+}
+
+function createNewReply(content, id) {
+  const reply = {
+    id: generateRandomId(),
+    content,
+    createdAt: getNowDateFormmatted(),
+    score: 0,
+    user: state.currentUser,
+    replies: [],
+  };
+
+  state.comments.forEach((comment) => addNewReply(comment, id, reply));
+}
+
+function addNewReply(comment, id, reply) {
+  if (comment.id === id) {
+    comment.replies = comment.replies ? [...comment.replies, reply] : [reply];
+  } else if (comment.replies) {
+    comment.replies.forEach((comment) => addNewReply(comment, id, reply));
+  }
+}
+
+function editComment(content, id) {
+  state.comments.forEach((comment) => modifyComment(comment, content, id));
+}
+
+function modifyComment(comment, content, id) {
+  if (comment.id === id) {
+    comment.content = content;
+  } else if (comment.replies) {
+    comment.replies.forEach((comment) => modifyComment(comment, content, id));
+  }
+}
+
+export default {
+  state,
+  getComments,
+  updateScoreCount,
+  deleteComment,
+  createNewComment,
+  createNewReply,
+  editComment,
+};

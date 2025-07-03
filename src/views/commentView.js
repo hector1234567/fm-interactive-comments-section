@@ -90,11 +90,6 @@ export class CommentView {
         `;
     }
     return `
-        <button class="btn-danger btn-delete">
-            <img src="/images/icon-delete.svg" alt="Delete" /><span
-            >Delete</span
-            >
-        </button>
         <button class="btn-primary btn-reply">
             <img src="/images/icon-reply.svg" alt="Reply" /><span>Reply</span>
         </button>
