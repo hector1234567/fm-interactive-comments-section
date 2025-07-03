@@ -88,7 +88,7 @@ function addNewReply(comment, id, reply) {
   if (comment.id === id) {
     comment.replies = comment.replies ? [...comment.replies, reply] : [reply];
   } else if (comment.replies) {
-    comment.replies.forEach((comment) => addNewReply(comment, id, reply));
+    comment.replies.forEach((com) => addNewReply(com, id, reply));
   }
 }
 
