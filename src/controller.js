@@ -37,7 +37,7 @@ function addComment(comment, divEl) {
 
   if (!comment.replies) return;
   const repliesEl = document.querySelector("#replies--" + comment.id);
-  comment.replies.forEach((comment) => addComment(comment, repliesEl));
+  comment.replies.forEach((com) => addComment(com, repliesEl));
 }
 
 function handleShowReplyForm(id) {
