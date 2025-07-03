@@ -13,8 +13,7 @@ window.addEventListener("beforeunload", function (event) {
 });
 
 async function getComments() {
-  const data = await loadState(state);
-  state = data;
+  state = await loadState();
 }
 
 function updateScoreCount(direction, commentId) {
